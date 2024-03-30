@@ -1,10 +1,11 @@
-'use client';
+import { useState } from 'react';
 
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { PlusIcon } from '@radix-ui/react-icons';
 
 import {
   Table,
@@ -14,12 +15,26 @@ import {
   TableHeader,
   TableRow,
 } from './Table';
+import { Button } from '../button/Button';
 
-export function DataTable({ columns, data }) {
+/**
+ * Displays the DataTable component which shows the data in a table
+ * @param {[Object]} columns - columns for the table
+ * @param {[Object]} data - data for the table rows
+ * @param {String} emptyTodoText - text to display when there is no data on the pending todos
+ * @param {String} emptyTodoButton - button to display when there is no data on the pending todos
+ * @returns {JSX} the DataTable component
+ */
+export function DataTable({ columns, data, emptyTodoText, emptyTodoButton }) {
+  const [rowSelection, setRowSelection] = useState({});
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onRowSelectionChange: setRowSelection,
+    state: {
+      rowSelection,
+    },
   });
 
   return (
@@ -59,8 +74,11 @@ export function DataTable({ columns, data }) {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                No results.
+              <TableCell colSpan={columns.length} className='h-32 text-center'>
+                <p className='mt-4'>{emptyTodoText}</p>
+                <Button className='mt-3'>
+                  <PlusIcon className='mr-2 h-5 w-5' /> {emptyTodoButton}
+                </Button>
               </TableCell>
             </TableRow>
           )}
