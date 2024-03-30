@@ -1,5 +1,9 @@
 import { Checkbox } from '../checkbox/Checkbox';
 
+/**
+ * Defines the columns for the table
+ * @returns {JSX} the columns
+ */
 export const columns = [
   {
     id: 'select',
