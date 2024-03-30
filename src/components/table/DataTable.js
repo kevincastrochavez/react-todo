@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PlusIcon } from '@radix-ui/react-icons';
 
 import {
   flexRender,
@@ -14,7 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from './Table';
-import AddTodo from '../addTodo/AddTodo';
+import { useSetTodosForms } from '../TodosProvider';
+import { Button } from '../button/Button';
 
 /**
  * Displays the DataTable component which shows the data in a table
@@ -26,6 +28,7 @@ import AddTodo from '../addTodo/AddTodo';
  */
 export function DataTable({ columns, data, emptyTodoText, emptyTodoButton }) {
   const [rowSelection, setRowSelection] = useState({});
+  const { setIsAddFormOpen } = useSetTodosForms();
   const table = useReactTable({
     data,
     columns,
@@ -75,7 +78,9 @@ export function DataTable({ columns, data, emptyTodoText, emptyTodoButton }) {
             <TableRow>
               <TableCell colSpan={columns.length} className='h-32 text-center'>
                 <p className='mt-4 mb-3'>{emptyTodoText}</p>
-                <AddTodo />
+                <Button onClick={() => setIsAddFormOpen(true)}>
+                  <PlusIcon className='mr-2 h-5 w-5' /> Add Todo
+                </Button>
               </TableCell>
             </TableRow>
           )}

@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { PlusIcon } from '@radix-ui/react-icons';
 
-import { useTodos } from '../../components/TodosProvider';
+import { useSetTodosForms, useTodos } from '../../components/TodosProvider';
 import { columns } from '../../components/table/Columns';
 import { DataTable } from '../../components/table/DataTable';
 import AddTodo from '../../components/addTodo/AddTodo';
+import { Button } from '../../components/button/Button';
 
 const todoPageContainerCSS = css`
   padding: 30px 20px;
@@ -40,11 +42,15 @@ const mainContainerCSS = css`
  */
 function TodosPage() {
   const { pendingTodos, completedTodos } = useTodos();
+  const { setIsAddFormOpen } = useSetTodosForms();
 
   return (
     <div css={todoPageContainerCSS}>
       <header css={headerContainerCSS}>
         <h1>All Todos</h1>
+        <Button onClick={() => setIsAddFormOpen(true)}>
+          <PlusIcon className='mr-2 h-5 w-5' /> Add Todo
+        </Button>
         <AddTodo />
       </header>
       <main css={mainContainerCSS}>
