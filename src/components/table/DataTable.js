@@ -5,7 +5,6 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { PlusIcon } from '@radix-ui/react-icons';
 
 import {
   Table,
@@ -15,7 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from './Table';
-import { Button } from '../button/Button';
+import AddTodo from '../addTodo/AddTodo';
 
 /**
  * Displays the DataTable component which shows the data in a table
@@ -75,10 +74,8 @@ export function DataTable({ columns, data, emptyTodoText, emptyTodoButton }) {
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className='h-32 text-center'>
-                <p className='mt-4'>{emptyTodoText}</p>
-                <Button className='mt-3'>
-                  <PlusIcon className='mr-2 h-5 w-5' /> {emptyTodoButton}
-                </Button>
+                <p className='mt-4 mb-3'>{emptyTodoText}</p>
+                <AddTodo />
               </TableCell>
             </TableRow>
           )}
