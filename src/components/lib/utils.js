@@ -13,10 +13,24 @@ export function cn(...inputs) {
  */
 export function addTodoToLocalStorage(key, newTodo) {
   try {
-    const existingTodos = JSON.parse(localStorage.getItem(key)) || []; // Get existing todos from localStorage or initialize an empty array
+    const existingTodos = getTodosFromLocalStorage(key); // Get existing todos from localStorage
     existingTodos.push(newTodo); // Add the new todo to the existing todos array
     localStorage.setItem(key, JSON.stringify(existingTodos)); // Set the updated todos array back to localStorage
   } catch (error) {
     console.error(`Error adding Todo to localStorage: ${error}`);
+  }
+}
+
+/**
+ * Gets the existing todos array stored in localStorage under the specified key.
+ * @param {String} key - The key used to retrieve the existing todos array from localStorage.
+ * @return {[Object]} The existing todos array.
+ */
+export function getTodosFromLocalStorage(key) {
+  try {
+    const existingTodos = JSON.parse(localStorage.getItem(key)) || []; // Get existing todos from localStorage or initialize an empty array
+    return existingTodos;
+  } catch (error) {
+    console.error(`Error getting Todos from localStorage: ${error}`);
   }
 }
