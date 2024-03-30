@@ -9,12 +9,12 @@ const TodosUpdateContext = createContext({});
  * @returns {JSX.Element}
  */
 export default function TodosProvider({ children }) {
-  const [todos, setTodos] = useState([]);
-  console.log(todos);
+  const [pendingTodos, setPendingTodos] = useState([]);
+  const [completedTodos, setCompletedTodos] = useState([]);
 
   return (
-    <TodosUpdateContext.Provider value={{ setTodos }}>
-      <TodosContext.Provider value={{ todos }}>
+    <TodosUpdateContext.Provider value={{ setPendingTodos, setCompletedTodos }}>
+      <TodosContext.Provider value={{ pendingTodos, completedTodos }}>
         {children}
       </TodosContext.Provider>
     </TodosUpdateContext.Provider>
@@ -22,23 +22,24 @@ export default function TodosProvider({ children }) {
 }
 
 /**
- * Returns the todos list
+ * Returns the pendingTodos list and completedTodos
  *
- * @returns { todos }
+ * @returns { pendingTodos, completedTodos }
  */
 export function useTodos() {
-  const { todos } = useTodosProvider('useTodos');
-  return { todos };
+  const { pendingTodos, completedTodos } = useTodosProvider('useTodos');
+  return { pendingTodos, completedTodos };
 }
 
 /**
- * Updates the todos list
+ * Updates the pending todos list and completed todos
  *
- * @returns { setTodos }
+ * @returns { setPendingTodos, setCompletedTodos }
  */
 export function useSetTodos() {
-  const { setTodos } = useSetTodosProvider('useSetTodos');
-  return { setTodos };
+  const { setPendingTodos, setCompletedTodos } =
+    useSetTodosProvider('useSetTodos');
+  return { setPendingTodos, setCompletedTodos };
 }
 
 /**
