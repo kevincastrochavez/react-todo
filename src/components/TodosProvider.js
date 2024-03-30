@@ -4,7 +4,7 @@ const TodosContext = createContext({});
 const TodosUpdateContext = createContext({});
 
 /**
- *  Provides whole application with information about the todos
+ * Handles whole application with information about the todos
  * @param {[React.ReactNode]|React.ReactNode} children - React children
  * @returns {JSX.Element}
  */

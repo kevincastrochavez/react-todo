@@ -66,6 +66,7 @@ function AddTodo() {
         name: nameRef.current.value,
         description: descriptionRef.current.value,
         deadline: date,
+        completed: false,
       });
       setIsAddingTodo(false);
       setIsAddFormOpen(false);
@@ -126,7 +127,7 @@ function AddTodo() {
           </Popover>
         </div>
         <DialogFooter>
-          <DialogClose className='order-1 mb-2'>
+          <DialogClose className='mt-2'>
             <Button
               onClick={() => setIsAddFormOpen(false)}
               className='w-full'
