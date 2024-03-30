@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TodosProvider from './TodosProvider';
+import { getTodosFromLocalStorage } from './lib/utils';
 
 /**
  * Loaders the whole application with information about the todos
@@ -8,7 +9,10 @@ import TodosProvider from './TodosProvider';
  */
 
 function TodosLoader({ children }) {
-  return <TodosProvider>{children}</TodosProvider>;
+  const todosKey = 'todos';
+  const todos = getTodosFromLocalStorage(todosKey);
+
+  return <TodosProvider todos={todos}>{children}</TodosProvider>;
 }
 
 export default TodosLoader;

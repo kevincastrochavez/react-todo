@@ -6,11 +6,16 @@ const TodosUpdateContext = createContext({});
 /**
  * Handles whole application with information about the todos
  * @param {[React.ReactNode]|React.ReactNode} children - React children
+ * @param {[Object]} todos - List of todos
  * @returns {JSX.Element}
  */
-export default function TodosProvider({ children }) {
-  const [pendingTodos, setPendingTodos] = useState([]);
-  const [completedTodos, setCompletedTodos] = useState([]);
+export default function TodosProvider({ children, todos }) {
+  const [pendingTodos, setPendingTodos] = useState(() =>
+    todos?.filter((todo) => todo.completed === false)
+  );
+  const [completedTodos, setCompletedTodos] = useState(() =>
+    todos?.filter((todo) => todo.completed === true)
+  );
   const [isAddingTodo, setIsAddingTodo] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
