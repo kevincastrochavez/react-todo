@@ -11,10 +11,21 @@ const TodosUpdateContext = createContext({});
 export default function TodosProvider({ children }) {
   const [pendingTodos, setPendingTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
+  const [isAddingTodo, setIsAddingTodo] = useState(false);
+  const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
   return (
-    <TodosUpdateContext.Provider value={{ setPendingTodos, setCompletedTodos }}>
-      <TodosContext.Provider value={{ pendingTodos, completedTodos }}>
+    <TodosUpdateContext.Provider
+      value={{
+        setPendingTodos,
+        setCompletedTodos,
+        setIsAddingTodo,
+        setIsAddFormOpen,
+      }}
+    >
+      <TodosContext.Provider
+        value={{ pendingTodos, completedTodos, isAddingTodo, isAddFormOpen }}
+      >
         {children}
       </TodosContext.Provider>
     </TodosUpdateContext.Provider>
@@ -32,14 +43,54 @@ export function useTodos() {
 }
 
 /**
+ * Returns actions for adding, editing or removing todos
+ *
+ * @returns {  isAddingTodo }
+ */
+export function useTodosActions() {
+  const { isAddingTodo } = useTodosProvider('useTodosActions');
+  return { isAddingTodo };
+}
+
+/**
+ * Returns if the add todo form is open
+ *
+ * @returns {  isAddFormOpen }
+ */
+export function useTodosForms() {
+  const { isAddFormOpen } = useTodosProvider('useTodosForms');
+  return { isAddFormOpen };
+}
+
+/**
  * Updates the pending todos list and completed todos
  *
- * @returns { setPendingTodos, setCompletedTodos }
+ * @returns { setPendingTodos, setCompletedTodos,  }
  */
 export function useSetTodos() {
   const { setPendingTodos, setCompletedTodos } =
     useSetTodosProvider('useSetTodos');
   return { setPendingTodos, setCompletedTodos };
+}
+
+/**
+ * Updates the actions for adding, editing or removing todos
+ *
+ * @returns {  setIsAddingTodo }
+ */
+export function useSetTodosActions() {
+  const { setIsAddingTodo } = useSetTodosProvider('useSetTodosActions');
+  return { setIsAddingTodo };
+}
+
+/**
+ * Updates the state of the add todo form
+ *
+ * @returns {  setIsAddFormOpen }
+ */
+export function useSetTodosForms() {
+  const { setIsAddFormOpen } = useSetTodosProvider('useSetTodosForms');
+  return { setIsAddFormOpen };
 }
 
 /**
