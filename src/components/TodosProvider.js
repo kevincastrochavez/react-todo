@@ -1,36 +1,32 @@
 import React, { createContext, useContext, useState } from 'react';
 
+import { getTodosFromLocalStorage } from './lib/utils';
+
 const TodosContext = createContext({});
 const TodosUpdateContext = createContext({});
 
 /**
  * Handles whole application with information about the todos
  * @param {[React.ReactNode]|React.ReactNode} children - React children
- * @param {[Object]} todos - List of todos
  * @returns {JSX.Element}
  */
-export default function TodosProvider({ children, todos }) {
-  const [pendingTodos, setPendingTodos] = useState(() =>
-    todos?.filter((todo) => todo.completed === false)
-  );
-  const [completedTodos, setCompletedTodos] = useState(() =>
-    todos?.filter((todo) => todo.completed === true)
-  );
+export default function TodosProvider({ children }) {
+  const todosKey = 'todos';
+  const [todos, setTodos] = useState(getTodosFromLocalStorage(todosKey));
   const [isAddingTodo, setIsAddingTodo] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+
+  console.log(todos);
 
   return (
     <TodosUpdateContext.Provider
       value={{
-        setPendingTodos,
-        setCompletedTodos,
+        setTodos,
         setIsAddingTodo,
         setIsAddFormOpen,
       }}
     >
-      <TodosContext.Provider
-        value={{ pendingTodos, completedTodos, isAddingTodo, isAddFormOpen }}
-      >
+      <TodosContext.Provider value={{ todos, isAddingTodo, isAddFormOpen }}>
         {children}
       </TodosContext.Provider>
     </TodosUpdateContext.Provider>
@@ -38,13 +34,23 @@ export default function TodosProvider({ children, todos }) {
 }
 
 /**
- * Returns the pendingTodos list and completedTodos
+ * Returns the todos list
  *
- * @returns { pendingTodos, completedTodos }
+ * @returns { todos }
  */
 export function useTodos() {
-  const { pendingTodos, completedTodos } = useTodosProvider('useTodos');
-  return { pendingTodos, completedTodos };
+  const { todos } = useTodosProvider('useTodos');
+  return { todos };
+}
+
+/**
+ * Updates the todos list
+ *
+ * @returns { setTodos }
+ */
+export function useSetTodos() {
+  const { setTodos } = useSetTodosProvider('useSetTodos');
+  return { setTodos };
 }
 
 /**
@@ -65,17 +71,6 @@ export function useTodosActions() {
 export function useTodosForms() {
   const { isAddFormOpen } = useTodosProvider('useTodosForms');
   return { isAddFormOpen };
-}
-
-/**
- * Updates the pending todos list and completed todos
- *
- * @returns { setPendingTodos, setCompletedTodos,  }
- */
-export function useSetTodos() {
-  const { setPendingTodos, setCompletedTodos } =
-    useSetTodosProvider('useSetTodos');
-  return { setPendingTodos, setCompletedTodos };
 }
 
 /**
