@@ -46,7 +46,6 @@ export function DataTable({ columns, data, emptyTodoText }) {
 
   // Updating the todos when the row selection changes
   useEffect(() => {
-    console.log(rowSelection);
     const rowIdSelected = Object.keys(rowSelection);
     if (rowIdSelected.length === 0) return;
 
