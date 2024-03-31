@@ -16,8 +16,6 @@ export default function TodosProvider({ children }) {
   const [isAddingTodo, setIsAddingTodo] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
 
-  console.log(todos);
-
   return (
     <TodosUpdateContext.Provider
       value={{

@@ -41,8 +41,11 @@ const mainContainerCSS = css`
  * @returns {JSX.Element}
  */
 function TodosPage() {
-  const { pendingTodos, completedTodos } = useTodos();
+  const { todos } = useTodos();
   const { setIsAddFormOpen } = useSetTodosForms();
+
+  const pendingTodos = todos.filter((todo) => !todo.completed);
+  const completedTodos = todos.filter((todo) => todo.completed);
 
   return (
     <div css={todoPageContainerCSS}>
@@ -57,6 +60,7 @@ function TodosPage() {
         <section>
           <h2>Pending</h2>
           <DataTable
+            key='1'
             columns={columns}
             data={pendingTodos}
             emptyTodoText='No Todos are pending at the time'
@@ -66,10 +70,10 @@ function TodosPage() {
         <section>
           <h2>Completed</h2>
           <DataTable
+            key='2'
             columns={columns}
             data={completedTodos}
             emptyTodoText='No Todos are completed yet. Add one and complete it!'
-            emptyTodoButton='Add Todo'
           />
         </section>
       </main>
