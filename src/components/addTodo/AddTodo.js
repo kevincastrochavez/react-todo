@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { CalendarIcon, ReloadIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Button } from '../button/Button';
 import {
@@ -61,6 +62,8 @@ function AddTodo() {
   }
 
   function onSubmit() {
+    const todoId = uuidv4();
+
     setIsAddingTodo(true);
     setTimeout(() => {
       setTodos({
@@ -68,6 +71,7 @@ function AddTodo() {
         description: descriptionRef.current.value,
         deadline: date,
         completed: false,
+        id: todoId,
       });
       setIsAddingTodo(false);
       setIsAddFormOpen(false);
