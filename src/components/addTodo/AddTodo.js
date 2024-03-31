@@ -69,7 +69,7 @@ function AddTodo() {
       setTodos({
         name: nameRef.current.value,
         description: descriptionRef.current.value,
-        deadline: date,
+        deadline: date.toISOString(), // ISO format
         completed: false,
         id: todoId,
       });
