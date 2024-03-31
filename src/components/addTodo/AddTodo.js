@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { CalendarIcon, PlusIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { CalendarIcon, ReloadIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 
 import { Button } from '../button/Button';
@@ -17,8 +17,7 @@ import { Label } from '../label/Label';
 import { Textarea } from '../textarea/Textarea';
 import { Calendar } from '../calendar/Calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover/Popover';
-import { cn } from '../lib/utils';
-import { addTodoToLocalStorage } from '../lib/utils';
+import { cn, useLocalStorage } from '../lib/utils';
 import {
   useTodosActions,
   useSetTodosActions,
@@ -38,6 +37,8 @@ function AddTodo() {
   const { setIsAddingTodo } = useSetTodosActions();
   const { isAddFormOpen } = useTodosForms();
   const { setIsAddFormOpen } = useSetTodosForms();
+  const todosKey = 'todos';
+  const [todos, setTodos] = useLocalStorage(todosKey);
 
   /**
    * Checks if the name input is valid
@@ -62,7 +63,7 @@ function AddTodo() {
   function onSubmit() {
     setIsAddingTodo(true);
     setTimeout(() => {
-      addTodoToLocalStorage('todos', {
+      setTodos({
         name: nameRef.current.value,
         description: descriptionRef.current.value,
         deadline: date,

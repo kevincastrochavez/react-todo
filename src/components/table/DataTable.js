@@ -23,10 +23,9 @@ import { Button } from '../button/Button';
  * @param {[Object]} columns - columns for the table
  * @param {[Object]} data - data for the table rows
  * @param {String} emptyTodoText - text to display when there is no data on the pending todos
- * @param {String} emptyTodoButton - button to display when there is no data on the pending todos
  * @returns {JSX} the DataTable component
  */
-export function DataTable({ columns, data, emptyTodoText, emptyTodoButton }) {
+export function DataTable({ columns, data, emptyTodoText }) {
   const [rowSelection, setRowSelection] = useState({});
   const { setIsAddFormOpen } = useSetTodosForms();
   const table = useReactTable({

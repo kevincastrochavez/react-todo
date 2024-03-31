@@ -1,6 +1,8 @@
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+import { useSetTodos, useTodos } from '../TodosProvider';
+
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
@@ -33,4 +35,22 @@ export function getTodosFromLocalStorage(key) {
   } catch (error) {
     console.error(`Error getting Todos from localStorage: ${error}`);
   }
+}
+
+/**
+ * Sets the new todos array stored in localStorage under the specified key.
+ * @param {String} key - The key used to retrieve the existing todos array from localStorage.
+ * @return {[Object]} The existing todos array.
+ */
+export function useLocalStorage(key) {
+  const { todos } = useTodos();
+  const { setTodos } = useSetTodos();
+
+  function setStorage(todo) {
+    const allTodos = [...todos, todo];
+    localStorage.setItem(key, JSON.stringify(allTodos));
+    setTodos(allTodos);
+  }
+
+  return [todos, setStorage];
 }
