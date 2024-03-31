@@ -40,9 +40,10 @@ export function getTodosFromLocalStorage(key) {
 /**
  * Sets the new todos array stored in localStorage under the specified key.
  * @param {String} key - The key used to retrieve the existing todos array from localStorage.
+ * @param {String} action - The action to be performed on localStorage
  * @return {[Object]} The existing todos array.
  */
-export function useLocalStorage(key) {
+export function useLocalStorage(key, action = 'add') {
   const { todos } = useTodos();
   const { setTodos } = useSetTodos();
 
@@ -52,5 +53,11 @@ export function useLocalStorage(key) {
     setTodos(allTodos);
   }
 
+  function setCheckTodos(todos) {
+    localStorage.setItem(key, JSON.stringify(todos));
+    setTodos(todos);
+  }
+
+  if (action === 'checked') return [todos, setCheckTodos];
   return [todos, setStorage];
 }
