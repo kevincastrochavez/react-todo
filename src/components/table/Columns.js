@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { ChevronRightIcon } from '@radix-ui/react-icons';
+import { ChevronRightIcon, StopwatchIcon } from '@radix-ui/react-icons';
 import { formatDistance } from 'date-fns';
 
 import { Button } from '../button/Button';
@@ -22,6 +22,13 @@ const deadlineCellCSS = css`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  display: flex;
+  align-items: center;
+
+  & svg {
+    margin-right: 8px;
+  }
 `;
 
 /**
@@ -56,7 +63,11 @@ export const pendingColumns = [
     header: 'Deadline',
     cell: ({ row }) => {
       const dateFormatted = formatDistance(row.original.deadline, new Date());
-      return <span css={deadlineCellCSS}>{dateFormatted}</span>;
+      return (
+        <span css={deadlineCellCSS}>
+          <StopwatchIcon className='h-4 w-4' /> {dateFormatted}
+        </span>
+      );
     },
   },
   {
@@ -95,7 +106,11 @@ export const completedColumns = [
     header: 'Deadline',
     cell: ({ row }) => {
       const dateFormatted = formatDistance(row.original.deadline, new Date());
-      return <span css={deadlineCellCSS}>{dateFormatted}</span>;
+      return (
+        <span css={deadlineCellCSS}>
+          <StopwatchIcon className='h-4 w-4' /> {dateFormatted}
+        </span>
+      );
     },
   },
   {
