@@ -1,4 +1,5 @@
 import { Checkbox } from '../checkbox/Checkbox';
+import CheckboxWrapper from '../checkbox/CheckboxWrapper';
 
 /**
  * Defines the columns for the table in the pending todos
@@ -32,13 +33,7 @@ export const pendingColumns = [
 export const completedColumns = [
   {
     id: 'select',
-    cell: ({ row }) => (
-      <Checkbox
-        defaultChecked
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label='Select row'
-      />
-    ),
+    cell: ({ row }) => <CheckboxWrapper row={row} />,
   },
   {
     accessorKey: 'name',
