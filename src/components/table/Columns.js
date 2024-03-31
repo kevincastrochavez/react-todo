@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 import { ChevronRightIcon, StopwatchIcon } from '@radix-ui/react-icons';
 import { formatDistance } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 import { Button } from '../button/Button';
 import { Checkbox } from '../checkbox/Checkbox';
@@ -72,10 +73,12 @@ export const pendingColumns = [
   },
   {
     id: 'show',
-    cell: () => (
-      <Button variant='ghost' size='icon'>
-        <ChevronRightIcon className='h-5 w-5' />
-      </Button>
+    cell: ({ row }) => (
+      <Link to={row.original.id}>
+        <Button variant='ghost' size='icon'>
+          <ChevronRightIcon className='h-5 w-5' />
+        </Button>
+      </Link>
     ),
   },
 ];
@@ -115,10 +118,12 @@ export const completedColumns = [
   },
   {
     id: 'show',
-    cell: () => (
-      <Button variant='ghost' size='icon'>
-        <ChevronRightIcon className='h-5 w-5' />
-      </Button>
+    cell: ({ row }) => (
+      <Link to={row.original.id}>
+        <Button variant='ghost' size='icon'>
+          <ChevronRightIcon className='h-5 w-5' />
+        </Button>
+      </Link>
     ),
   },
 ];
