@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { getTodosFromLocalStorage } from './lib/utils';
 
@@ -15,6 +15,20 @@ export default function TodosProvider({ children }) {
   const [todos, setTodos] = useState(getTodosFromLocalStorage(todosKey));
   const [isAddingTodo, setIsAddingTodo] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+  const [uncheckedRowId, setUncheckedRowId] = useState('');
+
+  useEffect(() => {
+    if (!!uncheckedRowId) {
+      const todoToMove = todos.find((todo) => todo.id === uncheckedRowId);
+      const restOfTodos = todos.filter((todo) => todo.id !== uncheckedRowId);
+      todoToMove.completed = !todoToMove.completed;
+      const newTodos = [...restOfTodos, todoToMove];
+
+      localStorage.setItem(todosKey, JSON.stringify(newTodos));
+      setTodos(newTodos);
+      setUncheckedRowId('');
+    }
+  }, [uncheckedRowId]);
 
   return (
     <TodosUpdateContext.Provider
@@ -22,9 +36,12 @@ export default function TodosProvider({ children }) {
         setTodos,
         setIsAddingTodo,
         setIsAddFormOpen,
+        setUncheckedRowId,
       }}
     >
-      <TodosContext.Provider value={{ todos, isAddingTodo, isAddFormOpen }}>
+      <TodosContext.Provider
+        value={{ todos, isAddingTodo, isAddFormOpen, uncheckedRowId }}
+      >
         {children}
       </TodosContext.Provider>
     </TodosUpdateContext.Provider>
@@ -32,23 +49,13 @@ export default function TodosProvider({ children }) {
 }
 
 /**
- * Returns the todos list
+ * Returns the todos list and the id of the unchecked todo
  *
- * @returns { todos }
+ * @returns { todos, uncheckedRowId }
  */
 export function useTodos() {
-  const { todos } = useTodosProvider('useTodos');
-  return { todos };
-}
-
-/**
- * Updates the todos list
- *
- * @returns { setTodos }
- */
-export function useSetTodos() {
-  const { setTodos } = useSetTodosProvider('useSetTodos');
-  return { setTodos };
+  const { todos, uncheckedRowId } = useTodosProvider('useTodos');
+  return { todos, uncheckedRowId };
 }
 
 /**
@@ -69,6 +76,16 @@ export function useTodosActions() {
 export function useTodosForms() {
   const { isAddFormOpen } = useTodosProvider('useTodosForms');
   return { isAddFormOpen };
+}
+
+/**
+ * Updates the todos list and the id of the unchecked todo
+ *
+ * @returns { setTodos, setUncheckedRowId }
+ */
+export function useSetTodos() {
+  const { setTodos, setUncheckedRowId } = useSetTodosProvider('useSetTodos');
+  return { setTodos, setUncheckedRowId };
 }
 
 /**
