@@ -3,7 +3,10 @@ import { css } from '@emotion/react';
 import { PlusIcon } from '@radix-ui/react-icons';
 
 import { useSetTodosForms, useTodos } from '../../components/TodosProvider';
-import { columns } from '../../components/table/Columns';
+import {
+  pendingColumns,
+  completedColumns,
+} from '../../components/table/Columns';
 import { DataTable } from '../../components/table/DataTable';
 import AddTodo from '../../components/addTodo/AddTodo';
 import { Button } from '../../components/button/Button';
@@ -61,7 +64,7 @@ function TodosPage() {
           <h2>Pending</h2>
           <DataTable
             key='1'
-            columns={columns}
+            columns={pendingColumns}
             data={pendingTodos}
             emptyTodoText='No Todos are pending at the time'
             emptyTodoButton='Add Todo'
@@ -71,7 +74,7 @@ function TodosPage() {
           <h2>Completed</h2>
           <DataTable
             key='2'
-            columns={columns}
+            columns={completedColumns}
             data={completedTodos}
             emptyTodoText='No Todos are completed yet. Add one and complete it!'
           />
