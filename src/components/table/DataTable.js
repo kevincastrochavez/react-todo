@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PlusIcon } from '@radix-ui/react-icons';
 
 import {
@@ -17,6 +17,7 @@ import {
 } from './Table';
 import { useSetTodosForms } from '../TodosProvider';
 import { Button } from '../button/Button';
+import { useLocalStorage } from '../lib/utils';
 
 /**
  * Displays the DataTable component which shows the data in a table
@@ -28,15 +29,38 @@ import { Button } from '../button/Button';
 export function DataTable({ columns, data, emptyTodoText }) {
   const [rowSelection, setRowSelection] = useState({});
   const { setIsAddFormOpen } = useSetTodosForms();
+  const todosKey = 'todos';
+  const [todos] = useLocalStorage(todosKey);
+  const [checkedTodos, setCheckedTodos] = useLocalStorage(todosKey, 'checked');
+
   const table = useReactTable({
     data,
     columns,
+    getRowId: (row) => row.id,
     getCoreRowModel: getCoreRowModel(),
     onRowSelectionChange: setRowSelection,
     state: {
       rowSelection,
     },
   });
+
+  // Updating the todos when the row selection changes
+  useEffect(() => {
+    console.log(rowSelection);
+    const rowIdSelected = Object.keys(rowSelection);
+    if (rowIdSelected.length === 0) return;
+
+    const todoId = rowIdSelected[0];
+    const todoToMove = todos.find((todo) => todo.id === todoId);
+    const restOfTodos = todos.filter((todo) => todo.id !== todoId);
+    todoToMove.completed = !todoToMove.completed;
+
+    const newTodos = [...restOfTodos, todoToMove];
+    setCheckedTodos(newTodos);
+
+    // Setting the row selection to empty so that it does not get selected again
+    setRowSelection({});
+  }, [rowSelection]);
 
   return (
     <div className='rounded-md border'>
