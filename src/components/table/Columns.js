@@ -1,6 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { ChevronRightIcon, StopwatchIcon } from '@radix-ui/react-icons';
+import {
+  CaretSortIcon,
+  ChevronRightIcon,
+  StopwatchIcon,
+} from '@radix-ui/react-icons';
 import { formatDistance } from 'date-fns';
 import { Link } from 'react-router-dom';
 
@@ -49,7 +53,17 @@ export const pendingColumns = [
   },
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Name
+          <CaretSortIcon className='h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       return (
         <div css={cellContainerCSS}>
@@ -61,7 +75,17 @@ export const pendingColumns = [
   },
   {
     accessorKey: 'deadline',
-    header: 'Deadline',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Deadline
+          <CaretSortIcon className='h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const dateFormatted = formatDistance(row.original.deadline, new Date());
       return (
@@ -94,7 +118,17 @@ export const completedColumns = [
   },
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Name
+          <CaretSortIcon className='h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       return (
         <div css={cellContainerCSS}>
@@ -106,7 +140,17 @@ export const completedColumns = [
   },
   {
     accessorKey: 'deadline',
-    header: 'Deadline',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Deadline
+          <CaretSortIcon className='h-4 w-4' />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const dateFormatted = formatDistance(row.original.deadline, new Date());
       return (

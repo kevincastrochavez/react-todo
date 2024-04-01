@@ -5,6 +5,7 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  getSortedRowModel,
 } from '@tanstack/react-table';
 
 import {
@@ -27,6 +28,7 @@ import { useLocalStorage } from '../lib/utils';
  * @returns {JSX} the DataTable component
  */
 export function DataTable({ columns, data, emptyTodoText }) {
+  const [nameSorting, setNameSorting] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
   const { setIsAddFormOpen } = useSetTodosForms();
   const todosKey = 'todos';
@@ -39,8 +41,11 @@ export function DataTable({ columns, data, emptyTodoText }) {
     getRowId: (row) => row.id,
     getCoreRowModel: getCoreRowModel(),
     onRowSelectionChange: setRowSelection,
+    onSortingChange: setNameSorting,
+    getSortedRowModel: getSortedRowModel(),
     state: {
       rowSelection,
+      sorting: nameSorting,
     },
   });
 
