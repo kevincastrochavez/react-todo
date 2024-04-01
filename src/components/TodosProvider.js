@@ -109,32 +109,27 @@ export function useSetTodos() {
 /**
  * Updates the actions for adding, editing or removing todos
  *
- * @returns {  setIsAddingTodo, setIsEditingTodo, setIsDeletingTodo, setIsDeleteFormOpen, }
+ * @returns {  setIsAddingTodo, setIsEditingTodo, setIsDeletingTodo }
  */
 export function useSetTodosActions() {
-  const {
-    setIsAddingTodo,
-    setIsEditingTodo,
-    setIsDeletingTodo,
-    setIsDeleteFormOpen,
-  } = useSetTodosProvider('useSetTodosActions');
+  const { setIsAddingTodo, setIsEditingTodo, setIsDeletingTodo } =
+    useSetTodosProvider('useSetTodosActions');
   return {
     setIsAddingTodo,
     setIsEditingTodo,
     setIsDeletingTodo,
-    setIsDeleteFormOpen,
   };
 }
 
 /**
  * Updates the state of the add todo form, and the state of the edit todo form
  *
- * @returns {  setIsAddFormOpen, setIsEditFormOpen }
+ * @returns {  setIsAddFormOpen, setIsEditFormOpen, setIsDeleteFormOpen }
  */
 export function useSetTodosForms() {
-  const { setIsAddFormOpen, setIsEditFormOpen } =
+  const { setIsAddFormOpen, setIsEditFormOpen, setIsDeleteFormOpen } =
     useSetTodosProvider('useSetTodosForms');
-  return { setIsAddFormOpen, setIsEditFormOpen };
+  return { setIsAddFormOpen, setIsEditFormOpen, setIsDeleteFormOpen };
 }
 
 /**
