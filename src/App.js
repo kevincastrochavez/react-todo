@@ -31,6 +31,9 @@ function componentLoader(lazyComponent, attemptsLeft = 5) {
 const TodosPage = lazy(() =>
   componentLoader(() => import('./pages/todos/TodosPage'))
 );
+const TodoDetailsPage = lazy(() =>
+  componentLoader(() => import('./pages/todos/TodoDetailsPage'))
+);
 
 function App() {
   return (
@@ -41,6 +44,14 @@ function App() {
           element={
             <Suspense fallback={<h1>Loading...</h1>}>
               <TodosPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/:id'
+          element={
+            <Suspense fallback={<h1>Loading details...</h1>}>
+              <TodoDetailsPage />
             </Suspense>
           }
         />
