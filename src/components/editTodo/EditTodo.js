@@ -192,7 +192,7 @@ function EditTodo({ name, description, deadline, completed, id }) {
           </Popover>
         </div>
         <DialogFooter>
-          <DialogClose className='mt-2'>
+          <DialogClose className='mt-2 sm:mt-0'>
             <Button
               onClick={() => setIsEditFormOpen(false)}
               className='w-full'

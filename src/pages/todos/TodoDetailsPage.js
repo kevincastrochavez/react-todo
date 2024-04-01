@@ -9,12 +9,25 @@ import TodoDetails from '../../components/todoDetails/TodoDetails';
 import EditTodo from '../../components/editTodo/EditTodo';
 import DeleteTodo from '../../components/deleteTodo/DeleteTodo';
 
-const todoPageContainerCSS = css`
+const todoPageContainerCss = css`
   padding: 30px 20px;
+  max-width: 1024px;
+  margin: auto;
 `;
 
-const backButtonCSS = css`
+const backButtonCss = css`
   margin-bottom: 20px;
+`;
+
+const buttonContainerCss = css`
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 640px) {
+    justify-content: end;
+    flex-direction: row;
+    gap: 20px;
+  }
 `;
 
 /**
@@ -29,9 +42,9 @@ function TodoDetailsPage() {
   const { setIsEditFormOpen, setIsDeleteFormOpen } = useSetTodosForms();
 
   return (
-    <main css={todoPageContainerCSS}>
+    <main css={todoPageContainerCss}>
       <Link to={'/'}>
-        <Button css={backButtonCSS}>
+        <Button css={backButtonCss}>
           <ChevronLeftIcon className='mr-2 h-5 w-5' /> Back to All
         </Button>
       </Link>
@@ -41,19 +54,24 @@ function TodoDetailsPage() {
       <EditTodo {...todoObj} />
       <DeleteTodo id={todoObj.id} />
 
-      <Button className='mt-8 w-full' onClick={() => setIsEditFormOpen(true)}>
-        <Pencil2Icon className='mr-2 h-5 w-5' />
-        Edit
-      </Button>
+      <div css={buttonContainerCss}>
+        <Button
+          className='mt-8 w-full sm:w-fit'
+          onClick={() => setIsEditFormOpen(true)}
+        >
+          <Pencil2Icon className='mr-2 h-5 w-5' />
+          Edit
+        </Button>
 
-      <Button
-        variant='destructive'
-        className='mt-4 w-full'
-        onClick={() => setIsDeleteFormOpen(true)}
-      >
-        <TrashIcon className='mr-2 h-5 w-5' />
-        Delete
-      </Button>
+        <Button
+          variant='destructive'
+          className='mt-4 sm:mt-8 w-full sm:w-fit'
+          onClick={() => setIsDeleteFormOpen(true)}
+        >
+          <TrashIcon className='mr-2 h-5 w-5' />
+          Delete
+        </Button>
+      </div>
     </main>
   );
 }

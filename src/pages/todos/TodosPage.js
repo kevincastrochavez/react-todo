@@ -13,6 +13,8 @@ import { Button } from '../../components/button/Button';
 
 const todoPageContainerCSS = css`
   padding: 30px 20px;
+  max-width: 1024px;
+  margin: auto;
 `;
 
 const headerContainerCSS = css`
@@ -27,6 +29,10 @@ const mainContainerCSS = css`
   margin-top: 30px;
   display: grid;
   gap: 30px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
 
   & h2 {
     font-size: 24px;

@@ -20,6 +20,18 @@ div[role='alertdialog'] {
   border-radius: 8px;
 }
 
+div[role='dialog'] {
+  @media (min-width: 640px) {
+    max-width: 500px;
+  }
+}
+
+div[role='alertdialog'] {
+  @media (min-width: 640px) {
+    max-width: 400px;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

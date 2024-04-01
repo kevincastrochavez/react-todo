@@ -12,6 +12,11 @@ const todoDetailsCss = css`
   display: grid;
   gap: 20px;
 
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
   padding: 30px 16px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -20,6 +25,10 @@ const todoDetailsCss = css`
     display: flex;
     color: #71717a;
     align-items: center;
+
+    @media (min-width: 640px) {
+      margin-bottom: 8px;
+    }
   }
 
   & span {
