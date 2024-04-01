@@ -15,8 +15,10 @@ export default function TodosProvider({ children }) {
   const [todos, setTodos] = useState(getTodosFromLocalStorage(todosKey));
   const [isAddingTodo, setIsAddingTodo] = useState(false);
   const [isEditingTodo, setIsEditingTodo] = useState(false);
+  const [isDeletingTodo, setIsDeletingTodo] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [isDeleteFormOpen, setIsDeleteFormOpen] = useState(false);
   const [uncheckedRowId, setUncheckedRowId] = useState('');
 
   useEffect(() => {
@@ -41,6 +43,8 @@ export default function TodosProvider({ children }) {
         setUncheckedRowId,
         setIsEditFormOpen,
         setIsEditingTodo,
+        setIsDeletingTodo,
+        setIsDeleteFormOpen,
       }}
     >
       <TodosContext.Provider
@@ -51,6 +55,8 @@ export default function TodosProvider({ children }) {
           uncheckedRowId,
           isEditingTodo,
           isEditFormOpen,
+          isDeletingTodo,
+          isDeleteFormOpen,
         }}
       >
         {children}
@@ -72,11 +78,12 @@ export function useTodos() {
 /**
  * Returns actions for adding, editing or removing todos
  *
- * @returns {  isAddingTodo, isEditingTodo }
+ * @returns {  isAddingTodo, isEditingTodo, isDeletingTodo, isDeleteFormOpen, }
  */
 export function useTodosActions() {
-  const { isAddingTodo, isEditingTodo } = useTodosProvider('useTodosActions');
-  return { isAddingTodo, isEditingTodo };
+  const { isAddingTodo, isEditingTodo, isDeletingTodo, isDeleteFormOpen } =
+    useTodosProvider('useTodosActions');
+  return { isAddingTodo, isEditingTodo, isDeletingTodo, isDeleteFormOpen };
 }
 
 /**
@@ -102,12 +109,21 @@ export function useSetTodos() {
 /**
  * Updates the actions for adding, editing or removing todos
  *
- * @returns {  setIsAddingTodo, setIsEditingTodo }
+ * @returns {  setIsAddingTodo, setIsEditingTodo, setIsDeletingTodo, setIsDeleteFormOpen, }
  */
 export function useSetTodosActions() {
-  const { setIsAddingTodo, setIsEditingTodo } =
-    useSetTodosProvider('useSetTodosActions');
-  return { setIsAddingTodo, setIsEditingTodo };
+  const {
+    setIsAddingTodo,
+    setIsEditingTodo,
+    setIsDeletingTodo,
+    setIsDeleteFormOpen,
+  } = useSetTodosProvider('useSetTodosActions');
+  return {
+    setIsAddingTodo,
+    setIsEditingTodo,
+    setIsDeletingTodo,
+    setIsDeleteFormOpen,
+  };
 }
 
 /**
