@@ -185,8 +185,8 @@ function EditTodo({ name, description, deadline, completed, id }) {
                 mode='single'
                 selected={dateRef.current}
                 onSelect={(newDate) => handlePickDate(newDate)}
-                initialFocus
                 ref={dateRef}
+                disabled={(date) => date < new Date()}
               />
             </PopoverContent>
           </Popover>

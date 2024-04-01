@@ -19,6 +19,7 @@ const todoDetailsCss = css`
   & p {
     display: flex;
     color: #71717a;
+    align-items: center;
   }
 
   & span {
