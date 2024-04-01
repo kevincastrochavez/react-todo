@@ -14,7 +14,9 @@ export default function TodosProvider({ children }) {
   const todosKey = 'todos';
   const [todos, setTodos] = useState(getTodosFromLocalStorage(todosKey));
   const [isAddingTodo, setIsAddingTodo] = useState(false);
+  const [isEditingTodo, setIsEditingTodo] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const [uncheckedRowId, setUncheckedRowId] = useState('');
 
   useEffect(() => {
@@ -37,10 +39,19 @@ export default function TodosProvider({ children }) {
         setIsAddingTodo,
         setIsAddFormOpen,
         setUncheckedRowId,
+        setIsEditFormOpen,
+        setIsEditingTodo,
       }}
     >
       <TodosContext.Provider
-        value={{ todos, isAddingTodo, isAddFormOpen, uncheckedRowId }}
+        value={{
+          todos,
+          isAddingTodo,
+          isAddFormOpen,
+          uncheckedRowId,
+          isEditingTodo,
+          isEditFormOpen,
+        }}
       >
         {children}
       </TodosContext.Provider>
@@ -61,21 +72,21 @@ export function useTodos() {
 /**
  * Returns actions for adding, editing or removing todos
  *
- * @returns {  isAddingTodo }
+ * @returns {  isAddingTodo, isEditingTodo }
  */
 export function useTodosActions() {
-  const { isAddingTodo } = useTodosProvider('useTodosActions');
-  return { isAddingTodo };
+  const { isAddingTodo, isEditingTodo } = useTodosProvider('useTodosActions');
+  return { isAddingTodo, isEditingTodo };
 }
 
 /**
- * Returns if the add todo form is open
+ * Returns if the add todo form is open, and if the edit todo form is open
  *
- * @returns {  isAddFormOpen }
+ * @returns { isAddFormOpen, isEditFormOpen }
  */
 export function useTodosForms() {
-  const { isAddFormOpen } = useTodosProvider('useTodosForms');
-  return { isAddFormOpen };
+  const { isAddFormOpen, isEditFormOpen } = useTodosProvider('useTodosForms');
+  return { isAddFormOpen, isEditFormOpen };
 }
 
 /**
@@ -91,21 +102,23 @@ export function useSetTodos() {
 /**
  * Updates the actions for adding, editing or removing todos
  *
- * @returns {  setIsAddingTodo }
+ * @returns {  setIsAddingTodo, setIsEditingTodo }
  */
 export function useSetTodosActions() {
-  const { setIsAddingTodo } = useSetTodosProvider('useSetTodosActions');
-  return { setIsAddingTodo };
+  const { setIsAddingTodo, setIsEditingTodo } =
+    useSetTodosProvider('useSetTodosActions');
+  return { setIsAddingTodo, setIsEditingTodo };
 }
 
 /**
- * Updates the state of the add todo form
+ * Updates the state of the add todo form, and the state of the edit todo form
  *
- * @returns {  setIsAddFormOpen }
+ * @returns {  setIsAddFormOpen, setIsEditFormOpen }
  */
 export function useSetTodosForms() {
-  const { setIsAddFormOpen } = useSetTodosProvider('useSetTodosForms');
-  return { setIsAddFormOpen };
+  const { setIsAddFormOpen, setIsEditFormOpen } =
+    useSetTodosProvider('useSetTodosForms');
+  return { setIsAddFormOpen, setIsEditFormOpen };
 }
 
 /**
