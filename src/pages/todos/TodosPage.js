@@ -18,11 +18,6 @@ const todoPageContainerCSS = css`
 const headerContainerCSS = css`
   display: grid;
 
-  & h1 {
-    font-size: 40px;
-    margin-bottom: 20px;
-  }
-
   & button {
     justify-self: end;
   }
