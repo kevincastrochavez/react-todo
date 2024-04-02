@@ -40,8 +40,6 @@ const TodoDetailsPage = lazy(() =>
 
 // TODO:
 // Notifications
-// Back button
-// Padding on sort buttons
 
 function App() {
   return (

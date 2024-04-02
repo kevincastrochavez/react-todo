@@ -17,6 +17,7 @@ const todoPageContainerCss = css`
 
 const backButtonCss = css`
   margin-bottom: 20px;
+  background-color: #767474;
 `;
 
 const buttonContainerCss = css`
