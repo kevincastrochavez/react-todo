@@ -58,6 +58,7 @@ export const pendingColumns = [
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          className='pl-0'
         >
           Name
           <CaretSortIcon className='h-4 w-4' />
@@ -80,6 +81,7 @@ export const pendingColumns = [
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          className='pl-0'
         >
           Deadline
           <CaretSortIcon className='h-4 w-4' />
@@ -123,6 +125,7 @@ export const completedColumns = [
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          className='pl-0'
         >
           Name
           <CaretSortIcon className='h-4 w-4' />
@@ -145,6 +148,7 @@ export const completedColumns = [
         <Button
           variant='ghost'
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          className='pl-0'
         >
           Deadline
           <CaretSortIcon className='h-4 w-4' />
