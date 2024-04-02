@@ -1,6 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import TodoDetailsPageSkeleton from './pages/todos/TodoDetailsPageSkeleton';
+import TodosPageSkeleton from './pages/todos/TodosPageSkeleton';
+
 /**
  * This will retry failed chunks up to 5 times
  * @param {Function} lazyComponent - lazy component import function
@@ -35,6 +38,11 @@ const TodoDetailsPage = lazy(() =>
   componentLoader(() => import('./pages/todos/TodoDetailsPage'))
 );
 
+// TODO:
+// Notifications
+// Back button
+// Padding on sort buttons
+
 function App() {
   return (
     <BrowserRouter>
@@ -42,7 +50,7 @@ function App() {
         <Route
           path='/'
           element={
-            <Suspense fallback={<h1>Loading...</h1>}>
+            <Suspense fallback={<TodosPageSkeleton />}>
               <TodosPage />
             </Suspense>
           }
@@ -50,7 +58,7 @@ function App() {
         <Route
           path='/:id'
           element={
-            <Suspense fallback={<h1>Loading details...</h1>}>
+            <Suspense fallback={<TodoDetailsPageSkeleton />}>
               <TodoDetailsPage />
             </Suspense>
           }

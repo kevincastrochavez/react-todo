@@ -37,6 +37,10 @@ const rowContainerCSS = css`
   border: 1px solid #e5e7eb;
 `;
 
+/**
+ * Displays a skeleton for the todos page
+ * @returns {JSX}
+ */
 function TodosPageSkeleton() {
   const skeletonRows = [1, 2, 3, 4];
 
