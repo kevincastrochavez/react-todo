@@ -25,6 +25,7 @@ import {
   useTodosForms,
   useSetTodosForms,
 } from '../TodosProvider';
+import { useToast } from '../toast/use-toast';
 
 /**
  * Displays the EditTodo form for a specific todo
@@ -53,6 +54,7 @@ function EditTodo({ name, description, deadline, completed, id }) {
   const todosKey = 'todos';
   const [todos] = useLocalStorage(todosKey);
   const [checkedTodos, setCheckedTodos] = useLocalStorage(todosKey, 'checked');
+  const { toast } = useToast();
 
   /**
    * Checks if the name input is valid
@@ -128,6 +130,13 @@ function EditTodo({ name, description, deadline, completed, id }) {
 
       setIsEditingTodo(false);
       setIsEditFormOpen(false);
+    }, 1000);
+
+    setTimeout(() => {
+      toast({
+        description: 'Your Todo has been successfully updated.',
+        variant: 'success',
+      });
     }, 1000);
   }
 

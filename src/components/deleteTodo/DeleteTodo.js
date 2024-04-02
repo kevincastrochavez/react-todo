@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
 } from '../alertDialog/AlertDialog';
 import { useLocalStorage } from '../lib/utils';
+import { useToast } from '../toast/use-toast';
 import { useSetTodosForms, useTodosActions } from '../TodosProvider';
 
 /**
@@ -25,11 +26,17 @@ function DeleteTodo({ id }) {
   const todosKey = 'todos';
   const [todos] = useLocalStorage(todosKey);
   const [checkedTodos, setCheckedTodos] = useLocalStorage(todosKey, 'checked');
+  const { toast } = useToast();
 
   function handleDeleteTodo() {
     const restOfTodos = todos.filter((todo) => todo.id !== id);
     setCheckedTodos(restOfTodos);
     navigate('/');
+
+    toast({
+      description: 'Your Todo has been successfully deleted.',
+      variant: 'success',
+    });
   }
 
   return (

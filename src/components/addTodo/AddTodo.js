@@ -25,6 +25,7 @@ import {
   useTodosForms,
   useSetTodosForms,
 } from '../TodosProvider';
+import { useToast } from '../toast/use-toast';
 
 function AddTodo() {
   const [isNameValid, setIsNameValid] = useState(false);
@@ -40,6 +41,7 @@ function AddTodo() {
   const { setIsAddFormOpen } = useSetTodosForms();
   const todosKey = 'todos';
   const [todos, setTodos] = useLocalStorage(todosKey);
+  const { toast } = useToast();
 
   /**
    * Checks if the name input is valid
@@ -75,6 +77,13 @@ function AddTodo() {
       });
       setIsAddingTodo(false);
       setIsAddFormOpen(false);
+    }, 1000);
+
+    setTimeout(() => {
+      toast({
+        description: 'Your Todo has been successfully added.',
+        variant: 'success',
+      });
     }, 1000);
   }
 

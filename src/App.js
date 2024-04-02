@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import TodoDetailsPageSkeleton from './pages/todos/TodoDetailsPageSkeleton';
 import TodosPageSkeleton from './pages/todos/TodosPageSkeleton';
+import { Toaster } from './components/toast/Toaster';
 
 /**
  * This will retry failed chunks up to 5 times
@@ -44,6 +45,8 @@ const TodoDetailsPage = lazy(() =>
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
+
       <Routes>
         <Route
           path='/'
