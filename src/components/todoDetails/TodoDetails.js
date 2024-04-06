@@ -48,32 +48,19 @@ function TodoDetails({ name, description, deadline, completed }) {
   return (
     <div css={todoDetailsCss}>
       <div>
-        <p>
-          <Pencil1Icon className='mr-1 h-5 w-5' />
-          Name
-        </p>
+        <p>Name</p>
         <span>{name}</span>
       </div>
       <div>
-        <p>
-          {' '}
-          <TextAlignJustifyIcon className='mr-1 h-5 w-5' />
-          Description
-        </p>
+        <p>Description</p>
         <span>{description}</span>
       </div>
       <div>
-        <p>
-          <StopwatchIcon className='mr-1 h-5 w-5' />
-          Deadline
-        </p>
+        <p>Deadline</p>
         <span>{formatDistance(deadline, new Date())}</span>
       </div>
       <div>
-        <p>
-          <CheckIcon className='mr-1 h-5 w-5' />
-          Completed
-        </p>
+        <p>Completed</p>
         <span>{completed ? 'Yes' : 'No'}</span>
       </div>
     </div>

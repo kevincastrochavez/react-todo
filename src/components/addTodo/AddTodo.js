@@ -53,6 +53,10 @@ function AddTodo() {
     setIsNameValid(regex.test(nameText));
   }
 
+  // TODO:
+  // Allow commas and quotes
+  // Check for limit on title and description
+
   /**
    * Checks if the description text area is valid
    * @returns {void} sets the isDescriptionValid state
